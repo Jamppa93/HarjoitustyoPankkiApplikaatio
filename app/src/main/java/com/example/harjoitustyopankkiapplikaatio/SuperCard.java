@@ -2,7 +2,7 @@ package com.example.harjoitustyopankkiapplikaatio;
 
 class SuperCard {
 
-    static protected Integer count = 300000;
+    static private Integer count = 300000;
     protected Integer id= 0;
     private DebitCard debitCardHolder;
     private CreditCard creditCardHolder;

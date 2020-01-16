@@ -19,6 +19,7 @@ public class MakeAccountsCardsMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_make_accounts_cards);
 
+        //MakeAccountsCardsActivity: openMakeAccountsActivity
         Button  makeAccounts= (Button) findViewById(R.id.buttonMakeChanges);
         makeAccounts.setOnClickListener(new View.OnClickListener( ) {
             @Override
@@ -33,6 +34,7 @@ public class MakeAccountsCardsMainActivity extends AppCompatActivity {
 
         });
 
+        //MakeAccountsCardsActivity: openMakeCardsActivity
         Button  makeCards = (Button) findViewById(R.id.buttonMakeCards);
         makeCards.setOnClickListener(new View.OnClickListener( ) {
             @Override
@@ -47,6 +49,7 @@ public class MakeAccountsCardsMainActivity extends AppCompatActivity {
 
         });
 
+        //MakeAccountsCardsActivity: openChangeAccountsOrCardsActivity
         Button makeChangesAccountOrCards = (Button) findViewById(R.id.buttonChangeAccountsOrCards);
         makeChangesAccountOrCards.setOnClickListener(new View.OnClickListener( ) {
             @Override

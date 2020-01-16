@@ -3,8 +3,8 @@ package com.example.harjoitustyopankkiapplikaatio;
 public class UserInfo {
 
     protected Integer id;
-    protected String userName;
-    protected String password;
+    private String userName;
+    private String password;
 
 
     UserInfo(Integer id, String userNameTemp, String passWordTemp){
@@ -14,14 +14,14 @@ public class UserInfo {
     }
 
     public Integer getId(){ return id;}
-    public String getUserName(){ return userName;}
-    public String getPassWord(){ System.out.println( userName +password);return password;}
+     String getUserName(){ return userName;}
+     String getPassWord(){ System.out.println( userName +password);return password;}
 
-    public void setUsername(String usernameTemp ) {
+     void setUsername(String usernameTemp ) {
         userName = usernameTemp;
     }
 
-    public void setPassword(String passwordTemp ) {
+     void setPassword(String passwordTemp ) {
         password = passwordTemp;
     }
 

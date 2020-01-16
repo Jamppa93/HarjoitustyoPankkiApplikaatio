@@ -10,14 +10,14 @@ import java.util.ArrayList;
 public class DebitAccount {
 
 
-    static protected Integer count = 110000;
-    protected Integer bankNumber ;
-    protected Double balance = 0.00;
+    static private Integer count = 110000;
+    private Integer bankNumber ;
+    private Double balance = 0.00;
     private String debitAccountName;
-    protected Boolean isAccountActive= true;
+    private Boolean isAccountActive= true;
     private Boolean isDebitActive= true;
-    protected Boolean isMutable = true;
-    protected  ArrayList<DebitCard> debitCardsInAccount;
+    private Boolean isMutable = true;
+    private  ArrayList<DebitCard> debitCardsInAccount;
 
 
 
@@ -95,9 +95,7 @@ public class DebitAccount {
         debitCardsInAccount.add(debitcardTemp);
     }
 
-    public void setDebitAccountName(String newNameTemp) {
-        this.debitAccountName = newNameTemp;
-    }
+
 
     public void removeDebitAccount() {
         this.count = 0;

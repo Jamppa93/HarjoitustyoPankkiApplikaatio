@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class CreditAccount extends DebitAccount implements Cloneable {
 
-    static protected Integer count = 220000;
-    protected Integer creditNumber = 0;
+    static private Integer count = 220000;
+    private Integer creditNumber = 0;
     private String creditAccountName;
     private Integer creditLimit;
     private Double usedCredit = 0.00;
-    protected ArrayList<CreditCard> creditCardsInAccount;
-    protected ArrayList<SuperCard> superCardsInAccount;
+    private ArrayList<CreditCard> creditCardsInAccount;
+    private ArrayList<SuperCard> superCardsInAccount;
     private Boolean isCreditActive;
 
 
@@ -86,113 +86,71 @@ public class CreditAccount extends DebitAccount implements Cloneable {
         this.creditCardsInAccount = new ArrayList<>();
         this.superCardsInAccount = new ArrayList<>();
     }
-//**********************************************************//
+    //**********************************************************//
 
-
-
-
-    public Boolean useCredit(double withdrawFromCredit){
-        if (withdrawFromCredit <= (creditLimit-usedCredit)){
-            usedCredit+=withdrawFromCredit;
-            return true;
-        }
-        else{return false;
-        }
-
-    }
-
-    public void paymentToCredit(double paymentToCredit){
-        usedCredit -= paymentToCredit;
-    }
-
-    private void changeCreditLimit(Integer newLimit){
-        creditLimit = newLimit; }
-
-    protected void deActivateDebitAccountFromCreditAccount() {
-        if (this.isMutable == true) {
-            this.usedCredit = -balance;
-            super.setDebitActive(false);
-            this.balance = null;
-            isMutable = false;
-        }
-    }
-
-    protected void activateDebitAccountFromCreditAccount(){
-        this.isMutable = true;
-        super.setDebitActive(true);
-        this.balance = 0.00;
-
-        }
-
-    protected void activeCreditAccountCredit(int creditLimitTemp){
-        creditLimit = creditLimitTemp;
-
-    }
-
-    protected void deActiveCreditAccountCredit(){
-        isCreditActive = false;
-        creditLimit = 0;
-
-    }
     //**********************************************************//
     // Getters
 
-    public Integer getCreditLimit(){return creditLimit;}
 
-    public Double getCreditSaldo(){ return (creditLimit-usedCredit);}
+     Double getCreditSaldo(){ return (creditLimit-usedCredit);}
 
-    public Integer getCreditNumber() {
+     Integer getCreditNumber() {
         return creditNumber;
     }
 
-    public String getCreditAccountName(){
+     String getCreditAccountName(){
         return creditAccountName;
     }
 
-    public ArrayList<SuperCard> getSuperCardsInAccount() {
+     ArrayList<SuperCard> getSuperCardsInAccount() {
         return superCardsInAccount;
     }
 
-    public ArrayList<CreditCard> getCreditCardsInAccount() {
+     ArrayList<CreditCard> getCreditCardsInAccount() {
         return creditCardsInAccount;
     }
 
     // Setters
 
-    public void SetCreditCardToCreditCardList(CreditCard creditCardTemp){
+     void SetCreditCardToCreditCardList(CreditCard creditCardTemp){
         creditCardsInAccount.add(creditCardTemp);
     }
 
-    public void SetSuperCardToCreditCardList(SuperCard superCardTemp){
+     void SetSuperCardToCreditCardList(SuperCard superCardTemp){
         superCardsInAccount.add(superCardTemp);
     }
-
-
-    public boolean isCreditActive() {
+    // activate the account credit account
+     boolean isCreditActive() {
         return isCreditActive;
     }
-    public DebitAccount transformToDebitAccount() throws CloneNotSupportedException {
+
+
+    // clones the clone
+     DebitAccount transformToDebitAccount() throws CloneNotSupportedException {
         return (DebitAccount) this.clone();
     }
 
-    public CreditAccount transformToCreditAccount() throws CloneNotSupportedException {
+    // clone the object and transforms it to CreditAccount object
+     CreditAccount transformToCreditAccount() throws CloneNotSupportedException {
         CreditAccount tempCreditAccount = (CreditAccount) this.clone();
         tempCreditAccount.removeDebitAccount();
         return tempCreditAccount;
     }
 
-    protected void addMoneyToCreditAccount(Double d){
+    // updates the balance
+     void addMoneyToCreditAccount(Double d){
         usedCredit =usedCredit-d;
     }
 
-    public Boolean withdrawMoneyFromCreditAccount(Double amountToSendDouble) {
+    // updates the saldo
+     Boolean withdrawMoneyFromCreditAccount(Double amountToSendDouble) {
         if(getCreditSaldo()>=amountToSendDouble){
             usedCredit= usedCredit+amountToSendDouble;
                     return true;
         }else{return false;}
     }
 
-    public void setCreditLimit(Integer newCreditLimit) {
+     void setCreditLimit(Integer newCreditLimit) {
 
         creditLimit = newCreditLimit;
     }

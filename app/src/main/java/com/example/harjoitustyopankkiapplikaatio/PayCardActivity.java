@@ -270,14 +270,10 @@ public class PayCardActivity extends AppCompatActivity {
         ShowCardInfoLimit.setText("PAYMENT LIMIT:    "+currentUserAccount.getCreditCard(cardNum).getPaymentLimitCredit());
     }
 
-
     private void payDebitCreditCard(String spinOutputObject, Integer receiverAccountNumberInt, Double amountToSendDouble) {
 
         Boolean isActionCompleted;
         Integer cardNumber = Integer.parseInt(spinOutputObject);
-
-
-
 
         creditSwitch.isChecked();
         if(isCreditAvailable==true){

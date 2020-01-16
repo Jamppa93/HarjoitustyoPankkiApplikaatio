@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // Salute your master!
         welcomeText = (TextView) findViewById(R.id.textViewTitleWelcomeUser);
-        welcomeText.setText("Welcome, " + Bank.getLoggedAccount( ).contactInfo.firstName);
+        welcomeText.setText("Welcome, " + Bank.getLoggedAccount( ).getContactInfo().getFirstName());
         //*****************************************************************//
 
         //Declaring and initializing buttons//
@@ -121,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
         // DISPLAY ACCOUNT OR CARDS IN TEXTVIEW
 
     }
-
+    // is activated when activity is opened
     class SelectShowedAccountInfoSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
             String SelectedAccountCardOptionToShow = parent.getItemAtPosition(position).toString( );
@@ -159,6 +159,10 @@ public class LoginActivity extends AppCompatActivity {
         public void onNothingSelected(AdapterView<?> adapterView) {
         }
     }
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////
+    // these methods are used in spinner class based on what in the 1. spinner has been selected
     //Account class display
 
     public void displayDebitCreditAccount(){

@@ -18,7 +18,7 @@ public class MasterCheckAllUserInfoActivity extends AppCompatActivity {
         Button buttonGoUserAccountsAndCards = (Button) findViewById(R.id.buttonAccountAndCardsMaster);
         Button buttonGoUserBankTransactions = (Button) findViewById(R.id.buttonBankTransactionsMaster);
 
-
+        //MasterCheckAllUserInfoActivity: return to MasterLoginActivity
         buttonReturnLoginMaster.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View v) {
@@ -32,6 +32,7 @@ public class MasterCheckAllUserInfoActivity extends AppCompatActivity {
             }
         });
 
+        //MasterCheckAllUserInfoActivity: go to MasterCheckUserInfoActivity
         buttonGoUserContactInfo.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View v) {
@@ -45,6 +46,7 @@ public class MasterCheckAllUserInfoActivity extends AppCompatActivity {
             }
         });
 
+        //MasterCheckAllUserInfoActivity: go to MasterCheckUserAccountsAndCards
         buttonGoUserAccountsAndCards.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View v) {
@@ -58,6 +60,7 @@ public class MasterCheckAllUserInfoActivity extends AppCompatActivity {
             }
         });
 
+        //MasterCheckAllUserInfoActivity: go to MasterCheckUserBankTransactions
         buttonGoUserBankTransactions.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View v) {

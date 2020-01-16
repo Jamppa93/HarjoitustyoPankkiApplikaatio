@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Bank {
     private static Bank bank = new Bank();
-    public static Account logged;
+    private static Account logged;
     static String name;
     static ArrayList<Account>accounts;
 
@@ -21,19 +21,21 @@ public class Bank {
 
     public static Bank getInstance(){return bank;}
 //*************************************************************************************************************************************************
-//UserAccount Creation
+//UserAccount Creation,
 
-    public static  Boolean checkUsernameAvailability(String userNameCandidate) {
+    //Return boolean value to tell if the account name is not used
+     static  Boolean checkUsernameAvailability(String userNameCandidate) {
 
         for(Account a: accounts){
-            if(a.userInfo.getUserName().equals(userNameCandidate)){
+            if(a.getUserInfo().getUserName().equals(userNameCandidate)){
                 return false;
             }
         }
         return true;
     }
 
-    public static Boolean addAccountToList(ArrayList<String> lista){
+    // Add the account to the Account list
+     static Boolean addAccountToList(ArrayList<String> lista){
         try {
             if (SupportMethods.checkThereIsNoNulls(lista) && lista.size()==10){
                 Account accountTemp = new Account(lista.get(0),lista.get(1),lista.get(2),lista.get(3),lista.get(4),lista.get(5),lista.get(6),lista.get(7),lista.get(8),lista.get(9));
@@ -52,30 +54,33 @@ public class Bank {
 //*************************************************************************************************************************************************
 //Login
 
-    public static Boolean checkLoginUsername(String usernameTemp){
+    //Return boolean value to tell if the account name is in the accountlists userfinfo object
+     static Boolean checkLoginUsername(String usernameTemp){
         for(Account a: accounts){
-            if(a.userInfo.getUserName().equals(usernameTemp)){
+            if(a.getUserInfo().getUserName().equals(usernameTemp)){
                 return true;
             }
         }
     return false;}
 
-    public static Boolean checkLoginPassword(String checkUsername, String passwordTemp){
+    //Return boolean value to tell if the account password matches with the account username
+     static Boolean checkLoginPassword(String checkUsername, String passwordTemp){
 
         for(Account a: accounts){
-            if(a.userInfo.getUserName().equals(checkUsername)){
-                if((a.userInfo.getPassWord()).equals(passwordTemp)){
+            if(a.getUserInfo().getUserName().equals(checkUsername)){
+                if((a.getUserInfo().getPassWord()).equals(passwordTemp)){
                     return true;
             }}
         }
 
         return false;}
 
-    public static void loggedIn(Account userAccountData) {
+     // makes account active and accesible tto other classes
+     static void loggedIn(Account userAccountData) {
         Integer indexOfAccount=null;
         logged = userAccountData;
         for(Account a: accounts){
-            if(a.userInfo.getId()==userAccountData.userInfo.getId())
+            if(a.getUserInfo().getId()==userAccountData.getUserInfo().getId())
             {
                 indexOfAccount = accounts.indexOf(a);
             }
@@ -84,7 +89,7 @@ public class Bank {
         accounts.set(indexOfAccount,logged);
     }
 
-    public static void loggedOut() {
+     static void loggedOut() {
         logged = null;
     }
 
@@ -92,10 +97,10 @@ public class Bank {
         return logged;
     }
 
-    public static Account IdentifyAccount(String checkUsername){
+     static Account IdentifyAccount(String checkUsername){
         Account tempAccount = null;
         for( Account a:accounts){
-            if(a.userInfo.getUserName().equals(checkUsername)){
+            if(a.getUserInfo().getUserName().equals(checkUsername)){
                 tempAccount = a;
             }
         }
@@ -105,28 +110,17 @@ public class Bank {
     }
 
 //*************************************************************************************************************************************************
-    //Pay with account
+    //Pay with account (takes user Id, account number, the account number to who the money will be sent and the amount of moneey)
+    // these methods will seach for the account, update the balance and search the receivers account and updates that too.
 
-
-    public static Boolean payDebitCreditAccountDebit(int UserId, int UserDebitCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
+     static Boolean payDebitCreditAccountDebit(int UserId, int UserDebitCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
 
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
 
         Integer debitAccountNumber= UserDebitCreditAccountNumber;
 
-/*
-        //finding bank account number
-        for(Account a: accounts) {
-            if(a.getUserInfo().getId().equals(UserId)) {
-                for(CreditAccount cd: a.getDebitCreditAccounts()) {
-                    if(cd.getCreditNumber().equals(UserDebitCreditAccountNumber)){
-                        debitAccountNumber = cd.getBankAccountNumber();
-                    }
-                }
-            }
-        }
-        */
+
         // Making the transaction
         for(Account a: accounts) {
             if(a.getUserInfo().getId().equals(UserId)) {
@@ -157,13 +151,14 @@ public class Bank {
         }
             if(isSubTransactionOk==true) {
 
+                // updates the balance of the receivers if account in found.
                 sendMoneyToAnotherAccount(receiverAccountNumberInt,amountToSendDouble);
                 isOverallTransactionOk = true;
             }
 
         return isOverallTransactionOk;}
 
-    public static Boolean payDebitCreditAccountCredit(int UserId, int UserCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
+     static Boolean payDebitCreditAccountCredit(int UserId, int UserCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
 
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
@@ -203,7 +198,7 @@ public class Bank {
 
         return isOverallTransactionOk;}
 
-    public static Boolean payDebitAccount(int UserId, int UserDebitAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
+     static Boolean payDebitAccount(int UserId, int UserDebitAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
 
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
@@ -231,7 +226,7 @@ public class Bank {
 
         return isOverallTransactionOk;}
 
-    public static Boolean payCreditAccount(int UserId, int UserCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
+     static Boolean payCreditAccount(int UserId, int UserCreditAccountNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
 
@@ -262,8 +257,10 @@ public class Bank {
 
         return isOverallTransactionOk;}
 
-    //Pay with card
-    public static Boolean payDebitCreditCard(Integer UserId, Integer superCardId, Integer receiverAccountNumberInt, Double amountToSendDouble, boolean payCredit) {
+    //Pay with card t (takes user Id, card number, the account number to who the money will be sent and the amount of moneey)
+    // these methods will seach for the card and identify it with the account, update the balance and search the receivers account and updates that too.
+
+     static Boolean payDebitCreditCard(Integer UserId, Integer superCardId, Integer receiverAccountNumberInt, Double amountToSendDouble, boolean payCredit) {
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
 
@@ -314,7 +311,7 @@ public class Bank {
         return isOverallTransactionOk;
     }
 
-    public static Boolean payDebitCard(Integer UserId, Integer debitCardNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
+     static Boolean payDebitCard(Integer UserId, Integer debitCardNumber, Integer receiverAccountNumberInt, Double amountToSendDouble) {
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
 
@@ -343,7 +340,7 @@ public class Bank {
         return isOverallTransactionOk;
     }
 
-    public static Boolean payCreditCard(Integer UserId, Integer creditCardNumber, Integer receiverAccountNumberInt, Double amountToSendDouble){
+     static Boolean payCreditCard(Integer UserId, Integer creditCardNumber, Integer receiverAccountNumberInt, Double amountToSendDouble){
 
         Boolean isSubTransactionOk =false;
         Boolean isOverallTransactionOk =false;
@@ -375,9 +372,8 @@ public class Bank {
 //*************************************************************************************************************************************************
 //Get cards with bank numbers
 
-
-
-    public static Integer getCreditDebitCardCreditAccountNumber(Integer accountNumber) {
+    // Since creditDebit cards have debit account and credit account, these  features return the other account number.
+     static Integer getCreditDebitCardCreditAccountNumber(Integer accountNumber) {
 
         Integer creditAccountTemp = null;
 
@@ -402,7 +398,7 @@ public class Bank {
         return creditAccountTemp;
     }
 
-    public static Integer getCreditDebitCardDebitAccountNumber(Integer accountNumber){
+     static Integer getCreditDebitCardDebitAccountNumber(Integer accountNumber){
 
         Integer debitAccountTemp = null;
 
@@ -423,7 +419,8 @@ public class Bank {
         return debitAccountTemp;
     }
 
-    public static Integer getDebitCardAccountNumber(Integer accountNumber){
+    // These features will return the account number of the card
+     static Integer getDebitCardAccountNumber(Integer accountNumber){
 
         Integer debitAccountTemp = null;
 
@@ -449,7 +446,7 @@ public class Bank {
 
     }
 
-    public static Integer getCreditCardAccountNumber(Integer accountNumber) {
+     static Integer getCreditCardAccountNumber(Integer accountNumber) {
 
         Integer creditCardTemp = null;
 
@@ -508,17 +505,17 @@ public class Bank {
         }
     }
 
-    public static Boolean checkIfMasterUser(String checkUsername, String checkPassword) {
+     static Boolean checkIfMasterUser(String checkUsername, String checkPassword) {
         if (checkUsername.equals("master") && checkPassword.equals("account")) {
             return true;
         }
     return false;}
 
-    public static ArrayList<Account> getAccounts() {
+     static ArrayList<Account> getAccounts() {
         return accounts;
     }
 
-    public static void deleteAccount(Integer id) {
+     static void deleteAccount(Integer id) {
         for (Account a : accounts){
             if(a.getUserInfo().getId() == id){
                 accounts.remove(a);

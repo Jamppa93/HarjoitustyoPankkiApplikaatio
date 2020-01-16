@@ -21,14 +21,7 @@ public class MasterCheckUserBankTransactions extends AppCompatActivity {
 
     //Declarations
     //*********************************************************//
-    private String SpinOutputTypeMaster;
-    private String spinOutputObjectMaster;
-    private Spinner SelectShowedAccountTypeMaster;
-    private Spinner SelectShowedAccountTargetMaster;
     private TextView ShowAnythingOutputMaster;
-    ;
-
-
     //*********************************************************//
 
     @Override
@@ -59,8 +52,7 @@ public class MasterCheckUserBankTransactions extends AppCompatActivity {
         });
     }
 
-
-
+    // prints the bank transactions which are in the bankTransactionsList;
     public void displayTransactions() {
 
         String finalMessage = "";

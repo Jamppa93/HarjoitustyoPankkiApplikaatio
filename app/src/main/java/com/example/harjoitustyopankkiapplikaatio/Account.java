@@ -19,13 +19,13 @@ public class Account {
     static protected Integer id = 0;
     //************************************************************************************
     // Declaring classes for user information
-    protected UserInfo userInfo;
-    protected ContactInfo contactInfo;
+    private UserInfo userInfo;
+    private ContactInfo contactInfo;
 
     // Declaring ListArrays for bank account and card classes
-    protected ArrayList<CreditAccount> debitCreditAccounts;
-    protected ArrayList<DebitAccount> debitAccounts;
-    protected ArrayList<CreditAccount> creditAccounts;
+    private ArrayList<CreditAccount> debitCreditAccounts;
+    private ArrayList<DebitAccount> debitAccounts;
+    private ArrayList<CreditAccount> creditAccounts;
     private ArrayList<BankAccountTransactions> bankAccountTransactions;
 
     Account(String firstName, String surName, String birthDate, String email, String phone, String streetName, String city, String postalCode, String username, String password) {
@@ -40,20 +40,24 @@ public class Account {
         this.bankAccountTransactions = new ArrayList<>( );
     }
 
+
     //************************************************************************************
     //  Account creation methods
 
-    protected void createDebitCreditAccount(String creditDebitAccountName, Double DebitBalance, Integer creditLimit) {
+    // Inputs: account name, the initial balance and credit limit
+    // adds the new Accounts to an account list
+
+     void createDebitCreditAccount(String creditDebitAccountName, Double DebitBalance, Integer creditLimit) {
         CreditAccount debitCreditTemp = new CreditAccount(creditDebitAccountName, DebitBalance, creditLimit);
         debitCreditAccounts.add(debitCreditTemp);
     }
 
-    protected void createDebitAccount(String debitAccountName, Double depositAmount) {
+     void createDebitAccount(String debitAccountName, Double depositAmount) {
         DebitAccount debitTemp = new DebitAccount(debitAccountName, depositAmount);
         debitAccounts.add(debitTemp);
     }
 
-    protected void createCreditAccount(Boolean isDebitActive, String creditAccountName, int creditLimit) {
+     void createCreditAccount(Boolean isDebitActive, String creditAccountName, Integer creditLimit) {
         CreditAccount creditTemp = new CreditAccount(isDebitActive, creditAccountName, creditLimit);
         creditAccounts.add(creditTemp);
     }
@@ -61,7 +65,9 @@ public class Account {
     //************************************************************************************
     // Card creation methods
 
-    protected CreditAccount createDebitCreditCard(CreditAccount creditObjectTemp, String creditDebitCardNameTemp, Integer paymentLimitTemp) {
+    // Inputs: account object, account name, the initial balance and credit limit
+    // creates a bank card which is added to the object
+     CreditAccount createDebitCreditCard(CreditAccount creditObjectTemp, String creditDebitCardNameTemp, Integer paymentLimitTemp) {
 
 
         Integer debitBankNumber = creditObjectTemp.getBankAccountNumber( );
@@ -79,7 +85,7 @@ public class Account {
         return creditObjectTemp;
     }
 
-    protected DebitAccount createDebitCard(DebitAccount debitObjectTemp, String debitCardNameTemp, Integer paymentLimitTemp) {
+     DebitAccount createDebitCard(DebitAccount debitObjectTemp, String debitCardNameTemp, Integer paymentLimitTemp) {
 
         Integer debitBankNumber = debitObjectTemp.getBankAccountNumber( );
         Double debitBalance = debitObjectTemp.getBalance( );
@@ -91,7 +97,7 @@ public class Account {
         return debitObjectTemp;
     }
 
-    protected CreditAccount createCreditCard(CreditAccount creditObjectTemp, String creditCardNameTemp, Integer paymentLimitTemp) {
+     CreditAccount createCreditCard(CreditAccount creditObjectTemp, String creditCardNameTemp, Integer paymentLimitTemp) {
 
 
         Integer creditAccountNumber = creditObjectTemp.getCreditNumber( );
@@ -107,22 +113,22 @@ public class Account {
     //************************************************************************************
     //BankAccountList Getters
 
-    public ArrayList<CreditAccount> getCreditAccounts() {
+     ArrayList<CreditAccount> getCreditAccounts() {
         return creditAccounts;
     }
 
-    public ArrayList<CreditAccount> getDebitCreditAccounts() {
+     ArrayList<CreditAccount> getDebitCreditAccounts() {
         return debitCreditAccounts;
     }
 
-    public ArrayList<DebitAccount> getDebitAccounts() {
+     ArrayList<DebitAccount> getDebitAccounts() {
         return debitAccounts;
     }
 
     //************************************************************************************
     //BankAccount Getters
 
-    public CreditAccount getDebitCreditAccount(Integer accountNumber) {
+     CreditAccount getDebitCreditAccount(Integer accountNumber) {
         CreditAccount debitCreditTemp = null;
         for (CreditAccount c : debitCreditAccounts) {
             if (c.getCreditNumber( ).equals(accountNumber)) {
@@ -136,7 +142,7 @@ public class Account {
         return debitCreditTemp;
     }
 
-    public DebitAccount getDebitAccount(Integer accountNumber) {
+     DebitAccount getDebitAccount(Integer accountNumber) {
         DebitAccount debitTemp = null;
         for (DebitAccount d : debitAccounts) {
             if (d.getBankAccountNumber( ).equals(accountNumber)) {
@@ -146,7 +152,7 @@ public class Account {
         return debitTemp;
     }
 
-    public CreditAccount getCreditAccount(Integer accountNumber) {
+     CreditAccount getCreditAccount(Integer accountNumber) {
         CreditAccount creditTemp = null;
         for (CreditAccount c : creditAccounts) {
             if (c.getCreditNumber( ).equals(accountNumber)) {
@@ -161,7 +167,7 @@ public class Account {
     //************************************************************************************
     //Card Getters
 
-    public SuperCard getDebitCreditCard(Integer cardNumber) {
+     SuperCard getDebitCreditCard(Integer cardNumber) {
         SuperCard superCardTemp = null;
 
         if (getDebitCreditAccounts( ).size( ) > 0) {
@@ -179,7 +185,7 @@ public class Account {
         return superCardTemp;
     }
 
-    public DebitCard getDebitCard(Integer cardNumber) {
+     DebitCard getDebitCard(Integer cardNumber) {
         DebitCard debitTemp = null;
         if (getDebitAccounts( ).size( ) > 0) {
             for (DebitAccount i : getDebitAccounts( )) {
@@ -196,7 +202,7 @@ public class Account {
         return debitTemp;
     }
 
-    public CreditCard getCreditCard(Integer cardNumber) {
+     CreditCard getCreditCard(Integer cardNumber) {
         CreditCard creditTemp = null;
         if (getCreditAccounts( ).size( ) > 0) {
             for (CreditAccount i : getCreditAccounts( )) {
@@ -213,21 +219,22 @@ public class Account {
         return creditTemp;
     }
     //************************************************************************************
-    // Other getters
-    public UserInfo getUserInfo() {
+    // User and contact getters
+     UserInfo getUserInfo() {
         return userInfo;
     }
 
-    public ContactInfo getContactInfo() {
+     ContactInfo getContactInfo() {
         return contactInfo;
     }
-
-
 
     //************************************************************************************
     //Make changes to accounts and cards
 
-    public Boolean changeAccountCreditLimit(Integer accountNumber, Integer newCreditLimit) {
+
+    //Loops accounts to find the account and changes the credit limit, boolean value if the change was a success.
+
+     Boolean changeAccountCreditLimit(Integer accountNumber, Integer newCreditLimit) {
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
 
@@ -247,8 +254,9 @@ public class Account {
         return false;
     }
 
+    //Loops accounts to find the account, removes the debit account and creates debitcredit account, boolean value if the change was a success.
 
-    public Boolean removeDebitAccountFromDebitCredit(Integer accountNumber) throws CloneNotSupportedException {
+     Boolean removeDebitAccountFromDebitCredit(Integer accountNumber) throws CloneNotSupportedException {
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
             if (i.getCreditNumber( ).equals(accountNumber)) {
@@ -262,7 +270,9 @@ public class Account {
         return false;
     }
 
-    public Boolean removeCreditAccountFromDebitCredit(Integer accountNumber) throws CloneNotSupportedException {
+    //Loops accounts to find the account, removes the creditdebet account and creates debit account, boolean value if the change was a success.
+
+     Boolean removeCreditAccountFromDebitCredit(Integer accountNumber) throws CloneNotSupportedException {
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
             if (i.getCreditNumber( ).equals(accountNumber)) {
@@ -275,7 +285,9 @@ public class Account {
 
     return false;}
 
-    public Boolean removeAccount(Integer AccountNumber){
+    //Loops accounts to find the account and deletes the account, boolean value if the change was a success.
+
+     Boolean removeAccount(Integer AccountNumber){
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
             if (i.getCreditNumber( ).equals(AccountNumber)) {
@@ -306,7 +318,9 @@ public class Account {
 
     return false;}
 
-    public Boolean transformDebitToDebitCreditAccount(Integer accountNumber) {
+    //Loops accounts to find the account and transform it to debitcredit, boolean value if the change was a success.
+
+     Boolean transformDebitToDebitCreditAccount(Integer accountNumber) {
 
         for (DebitAccount i : getDebitAccounts( )) {
             if (i.getBankAccountNumber( ).equals(accountNumber)) {
@@ -321,7 +335,24 @@ public class Account {
         return false;
     }
 
-    public Boolean removeDebitOrCreditCard(Integer cardNumber) {
+    //Loops accounts to find the account and transform it to debitcredit, boolean value if the change was a success.
+
+    Boolean transformfromCreditToDebitCreditAccount(Integer cardNumber){
+
+        for (CreditAccount i : getCreditAccounts( )) {
+            if (i.getCreditNumber( ).equals(cardNumber)) {
+                CreditAccount creditAccountTemp = new CreditAccount(i);
+                getDebitCreditAccounts( ).add(creditAccountTemp);
+                getCreditAccounts( ).remove(i);
+                return true;
+            }
+        }
+
+        return false;}
+
+
+    //Loops cards to find the card and deletes the card, boolean value if the change was a success.
+    Boolean removeDebitOrCreditCard(Integer cardNumber) {
 
         for (DebitAccount i : getDebitAccounts( )) {
             for (DebitCard s : i.getDebitCardsInAccount( )) {
@@ -355,7 +386,9 @@ public class Account {
         return false;
     }
 
-    public Boolean removeSuperCard(int cardNumber) {
+    //Loops cards to find the card and deletes the card, boolean value if the change was a success.
+
+     Boolean removeSuperCard(int cardNumber) {
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
             for (SuperCard s : i.getSuperCardsInAccount( )) {
@@ -368,7 +401,9 @@ public class Account {
         return false;
     }
 
-    public Boolean changePaymentLimit(Integer cardNumber, Integer newPaymentLimit) {
+    //Loops cards to find the card and changes the payment limit of the card (if supercard, does it to both of the card), boolean value if the change was a success.
+
+     Boolean changePaymentLimit(Integer cardNumber, Integer newPaymentLimit) {
 
 
         for (DebitAccount i : getDebitAccounts( )) {
@@ -390,7 +425,7 @@ public class Account {
 
         for (CreditAccount i : getDebitCreditAccounts( )) {
             for (SuperCard s : i.getSuperCardsInAccount( )) {
-                if (s.getId( ).equals(cardNumber)) {
+                if (cardNumber.equals(s.getId( ))) {
                     s.getCreditCardHolder().setPaymentLimitCredit(newPaymentLimit);
                     return true;
                 }
@@ -405,39 +440,29 @@ public class Account {
     }
 
 
-    public Boolean transformfromCreditToDebitCreditAccount(Integer cardNumber){
-
-        for (CreditAccount i : getCreditAccounts( )) {
-            if (i.getCreditNumber( ).equals(cardNumber)) {
-                CreditAccount creditAccountTemp = new CreditAccount(i);
-                getDebitCreditAccounts( ).add(creditAccountTemp);
-                getCreditAccounts( ).remove(i);
-                return true;
-            }
-        }
-
-    return false;}
     //************************************************************************************
     //BankAccountTransactionRecords
 
-    public ArrayList<BankAccountTransactions> getBankAccountTransactions() {
+     ArrayList<BankAccountTransactions> getBankAccountTransactions() {
         return bankAccountTransactions;
     }
 
-    public void createBankAccountTransactionRecord(Integer titleId, String title, String usernameId, String accountType, String accountNumber, String cardType, String cardNumber, String amount) {
+    // Creates card action record and adds it to transaction lists
+     void createBankAccountTransactionRecord(Integer titleId, String title, String usernameId, String accountType, String accountNumber, String cardType, String cardNumber, String amount) {
         BankAccountTransactions tempRecord = new BankAccountTransactions(titleId, title, usernameId, accountType, accountNumber, cardType, cardNumber, amount);
         bankAccountTransactions.add(tempRecord);
 
     }
 
-    public void createBankAccountTransactionRecord(Integer titleId, String title, String usernameId, String accountType, String accountNumber, String amount) {
+    // Creates account action record and adds it to transaction lists
+     void createBankAccountTransactionRecord(Integer titleId, String title, String usernameId, String accountType, String accountNumber, String amount) {
         BankAccountTransactions tempRecord = new BankAccountTransactions(titleId, title, usernameId, accountType, accountNumber, amount);
         bankAccountTransactions.add(tempRecord);
 
     }
 
-
-    public ArrayList<String> getAllAccountsNumbers() {
+    // loops all the Account list and return cards numbers, returns String list
+     ArrayList<String> getAllAccountsNumbers() {
 
         ArrayList<String> accountNumbers = new ArrayList<>();
 
@@ -466,7 +491,8 @@ public class Account {
 
         return accountNumbers;}
 
-    public ArrayList<String> getAllCardNumbers() {
+     // loops all the card list and return cards numbers, returns String list
+     ArrayList<String> getAllCardNumbers() {
 
         ArrayList<String> accountNumbers = new ArrayList<>();
 

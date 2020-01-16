@@ -21,6 +21,8 @@ class DebitCard implements Cloneable {
 
     }
 
+    //////////////////////////////////////////////////////////////////////////
+    //GETTERS
 
     public Integer getDebitCardNumber(){
         return DebitCardNumber;
@@ -42,13 +44,6 @@ class DebitCard implements Cloneable {
         return debitCardName;
     }
 
-    public void setDebitCardName(String newNameTemp) {
-        this.debitCardName = newNameTemp;
-    }
-
-    public void setPaymentLimitDebit(Integer newLimitTempInt) {
-        this.paymentLimit = newLimitTempInt;
-    }
 
     public Integer getPaymentLimitDebit() {return paymentLimit;
     }
@@ -66,11 +61,12 @@ class DebitCard implements Cloneable {
     public boolean getIsAcvice() { return isActive;
     }
 
-    public DebitCard getDebitCardClone() throws CloneNotSupportedException {
-        return (DebitCard) this.clone();
+    //////////////////////////////////////////////////////////////////////////
+    //SETTERS
+
+    public void setPaymentLimitDebit(Integer newLimitTempInt) {
+        this.paymentLimit = newLimitTempInt;
     }
-
-
 
     public void setDebitBalance(Double DebitBalance) {
         debitBalance = DebitBalance;

@@ -44,10 +44,6 @@ class CreditCard implements Cloneable{
         return creditAccountNumber;
     }
 
-    public void setCreditCardname(String newNameTemp) {
-        this.creditCardName = newNameTemp;
-    }
-
     public void setPaymentLimitCredit(Integer newLimitTemp) {
         this.paymentLimit = newLimitTemp;
     }

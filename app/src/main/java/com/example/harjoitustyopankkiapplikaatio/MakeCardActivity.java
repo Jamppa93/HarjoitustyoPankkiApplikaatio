@@ -46,13 +46,10 @@ public class MakeCardActivity extends AppCompatActivity {
 
     //*********************************************************//
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_make_card);
-
 
         //*********************************************************//
         //Initializing TextViews
@@ -60,14 +57,12 @@ public class MakeCardActivity extends AppCompatActivity {
         textViewTemp2 = findViewById(R.id.textView2);
         textViewTemp3 = findViewById(R.id.textView3);
 
-
         //*********************************************************//
         //Initializing EditTexts
 
         editTextTemp1 = findViewById(R.id.editText1);
         editTextTemp2 = findViewById(R.id.editText2);
         editTextTemp3 = findViewById(R.id.editText3);
-
 
         //*********************************************************//
         //Initializing Spinners
@@ -78,14 +73,9 @@ public class MakeCardActivity extends AppCompatActivity {
         SelectCardCreation.setAdapter(adapter);
         SelectCardCreation.setOnItemSelectedListener(new SelectCreationActionCardSpinnerClass( ));
 
-
-
-
-
         //*********************************************************//
         //Initializing buttons
-
-
+        // makes card based on what option is selected in spinner
 
         Button buttonMakeCard = (Button) findViewById(R.id.buttonMakeCard);
         buttonMakeCard.setOnClickListener(new View.OnClickListener( ) {
@@ -109,6 +99,8 @@ public class MakeCardActivity extends AppCompatActivity {
             }
         });
 
+
+        // DepositAndWithdrawActivity: return to MakeAccountsCardsMainActivity
         Button buttonReturnMakeAccountOrCardMainActivity = (Button) findViewById(R.id.buttonReturnFromMakeCardActivity);
         buttonReturnMakeAccountOrCardMainActivity.setOnClickListener(new View.OnClickListener( ) {
             @Override
@@ -126,14 +118,9 @@ public class MakeCardActivity extends AppCompatActivity {
 
         });
 
-
-
-
-
-
-
     }
 
+    // Sets the right card creation option valid based on the 1. spinners value and activates the second spinner.
     class SelectCreationActionCardSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
             SelectedOptionInCardCreation = parent.getItemAtPosition(position).toString( );
@@ -142,34 +129,26 @@ public class MakeCardActivity extends AppCompatActivity {
                 setTextDisplayOnOff1();
                 SetSpinnerListDebitCreditCard();
 
-
                 debitCreditCardGo = true;
                 debitCardGo = false;
                 creditCardGo = false;
-
-
             }
             else if(SelectedOptionInCardCreation.matches("DEBIT")){
-                setTextDisplayOnOff2();
+                setTextDisplayOnOff1();
                 SetSpinnerListDebitCard();
-
 
                 debitCardGo = true;
                 debitCreditCardGo = false;
                 creditCardGo = false;
-
             }
-
             else if(SelectedOptionInCardCreation.matches("CREDIT")){
-                setTextDisplayOnOff3();
+                setTextDisplayOnOff1();
                 SetSpinnerListCreditCard();
 
                 creditCardGo = true;
                 debitCardGo = false;
                 debitCreditCardGo = false;
-
             }
-
             else{
                 setTextDisplayOnOff4();
                 SetSpinnerShowNothing();
@@ -183,6 +162,7 @@ public class MakeCardActivity extends AppCompatActivity {
 
     }
 
+    // gets the spinners text
     class SelectWhatAccountTheCardSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
@@ -197,7 +177,7 @@ public class MakeCardActivity extends AppCompatActivity {
     }
 
 
-    //DISPLAYING EDITTEXT OPTIONS
+    //DISPLAYING EDITTEXT OPTIONS FOR CARD CRAETION (NAME. PAYMENT LIMIT)
     public void setTextDisplayOnOff1(){
         textViewTemp1.setText("Card name");
         textViewTemp2.setText("Payment Limit");
@@ -210,34 +190,7 @@ public class MakeCardActivity extends AppCompatActivity {
         editTextTemp2.setHint("Give a payment limit");
 
     }
-    public void setTextDisplayOnOff2(){
-        textViewTemp1.setText("Card name");
-        textViewTemp2.setText("Payment Limit");
-        textViewTemp3.setText("");
 
-        editTextTemp1.setInputType(InputType.TYPE_CLASS_TEXT);
-        editTextTemp2.setInputType(InputType.TYPE_CLASS_NUMBER);
-        editTextTemp3.setInputType(InputType.TYPE_NULL);
-
-        editTextTemp1.setHint("Give a card name");
-        editTextTemp2.setHint("Payment Limit");
-        editTextTemp3.setHint("");
-
-    }
-    public void setTextDisplayOnOff3(){
-        textViewTemp1.setText("Card name");
-        textViewTemp2.setText("Payment Limit");
-        textViewTemp3.setText("");
-
-        editTextTemp1.setInputType(InputType.TYPE_CLASS_TEXT);
-        editTextTemp2.setInputType(InputType.TYPE_CLASS_NUMBER);
-        editTextTemp3.setInputType(InputType.TYPE_NULL);
-
-        editTextTemp1.setHint("Give a card name");
-        editTextTemp2.setHint("Payment Limit");
-        editTextTemp3.setHint("");
-
-    }
     public void setTextDisplayOnOff4(){
         textViewTemp1.setText("");
         textViewTemp2.setText("");
@@ -258,6 +211,7 @@ public class MakeCardActivity extends AppCompatActivity {
     }
 
     // TEXT OPTIONS FOT THE 2TH SPINNER
+    // these are accessed in the class SelectCreationActionCardSpinnerClass
     private void SetSpinnerListDebitCreditCard(){
 
 
@@ -329,7 +283,6 @@ public class MakeCardActivity extends AppCompatActivity {
             //Payment Limit
             paymentLimitInt = Integer.parseInt(paymentLimit);
         }
-
         if (debitAndCreditCardName.isEmpty( )) {
             editTextTemp1.setHintTextColor(Color.RED);
             editTextTemp1.getText( ).clear( );
@@ -337,15 +290,9 @@ public class MakeCardActivity extends AppCompatActivity {
 
         }else if (!debitAndCreditCardName.isEmpty( )) {
 
-            Boolean IsDebitAccountNameOK = SupportMethods.isStringOnlyAlphabet(debitAndCreditCardName);
+            Boolean IsDebitAccountNameOK = true; //SupportMethods.isStringOnlyAlphabet(debitAndCreditCardName);
 
             if (IsDebitAccountNameOK == true) {
-
-               // CreditAccount tempCreditAccountOld=null;
-               // CreditAccount tempCreditAccountNew=null;
-
-
-
 
 
                 for (CreditAccount i :currentUserAccount.getDebitCreditAccounts() ){
@@ -356,8 +303,6 @@ public class MakeCardActivity extends AppCompatActivity {
                         break;
                     }
                 }
-                //Integer IndexofOldtempCreditAccount = currentUserAccount.getDebitCreditAccounts().indexOf(tempCreditAccountOld);
-                //currentUserAccount.getDebitCreditAccounts().set(IndexofOldtempCreditAccount,tempCreditAccountNew);
                 Bank.loggedIn(currentUserAccount);
                 editTextTemp1.getText( ).clear( );
                 editTextTemp2.getText( ).clear( );
@@ -394,12 +339,9 @@ public class MakeCardActivity extends AppCompatActivity {
 
         }else if (!debitCardName.isEmpty( )) {
 
-            Boolean IsDebitAccountNameOK = SupportMethods.isStringOnlyAlphabet(debitCardName);
+            Boolean IsDebitAccountNameOK = true; //SupportMethods.isStringOnlyAlphabet(debitCardName);
 
             if (IsDebitAccountNameOK == true) {
-
-               // DebitAccount tempDebitAccountOld=null;
-               // DebitAccount tempDebitAccountNew=null;
 
                 for (DebitAccount i :currentUserAccount.getDebitAccounts() ){
 
@@ -410,8 +352,7 @@ public class MakeCardActivity extends AppCompatActivity {
                     }
                 }
 
-                //Integer IndexofOldtempDebitAccount = currentUserAccount.getDebitAccounts().indexOf(tempDebitAccountOld);
-                //currentUserAccount.getDebitAccounts().set(IndexofOldtempDebitAccount,tempDebitAccountNew);
+
                 Bank.loggedIn(currentUserAccount);
                 editTextTemp1.getText( ).clear( );
                 editTextTemp2.getText( ).clear( );
@@ -448,31 +389,22 @@ public class MakeCardActivity extends AppCompatActivity {
 
         }else if (!creditCardName.isEmpty( )) {
 
-            Boolean IsCreditAccountNameOK = SupportMethods.isStringOnlyAlphabet(creditCardName);
+            Boolean IsCreditAccountNameOK = true; //SupportMethods.isStringOnlyAlphabet(creditCardName);
 
             if (IsCreditAccountNameOK == true) {
-
-              //  CreditAccount tempCreditAccountNew=null;
-              //  CreditAccount tempCreditAccountOld=null;
 
                 for (CreditAccount i :currentUserAccount.getCreditAccounts() ){
 
                     if( i.getCreditNumber() == askedAccount ) {
                          currentUserAccount.createCreditCard(i, creditCardName, paymentLimitInt);
-                        //tempCreditAccountOld = i;
                         break;
                     }
                 }
-
-                //Integer IndexofOldtempCreditAccount = currentUserAccount.getCreditAccounts().indexOf(tempCreditAccountOld);
-                //currentUserAccount.getDebitAccounts().set(IndexofOldtempCreditAccount,tempCreditAccountNew);
                 Bank.loggedIn(currentUserAccount);
                 editTextTemp1.getText( ).clear( );
                 editTextTemp2.getText( ).clear( );
-
                 editTextTemp1.setHint("Card created successfully!");
                 editTextTemp2.setHint("Card created successfully!");
-
                 editTextTemp1.setHintTextColor(Color.GRAY);
             }
         }

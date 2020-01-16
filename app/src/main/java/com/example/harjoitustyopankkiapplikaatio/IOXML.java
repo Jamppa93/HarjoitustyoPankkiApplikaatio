@@ -23,6 +23,7 @@ public class IOXML {
     Context context = ContextClass.getAppContext( );
     private static IOXML ioXML = new IOXML( );
     String fileName = "AccountTransactions.xml";
+    //tag names
     private ArrayList<String> subElementNames = new ArrayList<>(Arrays.asList("userID", "transactionId", "titleId", "title", "timeStamp", "accountType", "accountNumber", "cardType", "cardNumber", "amount"));
 
     private IOXML() {
@@ -33,6 +34,7 @@ public class IOXML {
         return ioXML;
     }
 
+    // makes a xml file to external storage location which will be selected in  Context class
     public void createRecordFile() {
 
         File file = context.getFileStreamPath(fileName);
@@ -67,9 +69,11 @@ public class IOXML {
         }
     }
 
+    // Opens the xml file and append new information to it by rewriting the whole file.
+    // it loops the BankTransaction list which is possessed by the current account
     public void saveToXML(ArrayList<BankAccountTransactions> bankAccountTransactions)  {
 
-
+        // loop tag names and bank transactions at the same time to fit them between each other.
         try {
             FileOutputStream ows = context.openFileOutput(fileName, Context.MODE_PRIVATE);
             XmlSerializer xmlSerializer = Xml.newSerializer( );

@@ -100,7 +100,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
             }
 
             public void makeWithdrawAction() {
-
+                //Checks that spinners gave selected to account
                 if (!isAccountOperationsOk.equals(null)){
                     if(isAccountOperationsOk.equals(true)){
                         makeAccountWithdrawAction();
@@ -109,6 +109,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
                         makeCardWithdrawAction();
                     }
                 }
+                //make xml file
                 IOXML.getInstance().saveToXML(currentUserAccount.getBankAccountTransactions());
                 initializeAccountOrCreditSpinner();
 
@@ -126,7 +127,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
             }
 
             public void makeDepositAction() {
-
+                //Checks that spinners is selected account or card
                 if (!isAccountOperationsOk.equals(null)){
                     if(isAccountOperationsOk.equals(true)){
                         makeAccountDepositAction();
@@ -135,6 +136,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
                        makeCardDepositAction();
                     }
                 }
+                //make xml file
                 IOXML.getInstance().saveToXML(currentUserAccount.getBankAccountTransactions());
                 initializeAccountOrCreditSpinner();
 
@@ -195,6 +197,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     //********************************************************************************************//
 
+    // Spinner 2 method when 1 spinner points to cards,, activates spinner 2 and give data for spinner 3  as a list
     private void activeCardTypeSpinner() {
         ArrayList<String> selectionList = new ArrayList<>(Arrays.asList("SELECT CARD TYPE","CARD: DEBIT/CREDIT","CARD: DEBIT","CARD: CREDIT"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, selectionList);
@@ -203,6 +206,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         SelectShowedType.setEnabled(true);
         SelectShowedType.setOnItemSelectedListener(new SelectShowedCardInfoSpinnerClass( ));}
 
+    // Spinner 2  method when 1 spinner points to accounts, , activates spinner 2 and give data for spinner 3  as a list
     private void activeAccountTypeSpinner() {
         ArrayList<String> selectionList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT TYPE","ACCOUNT: DEBIT/CREDIT","ACCOUNT: DEBIT","ACCOUNT: CREDIT"));
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, selectionList);
@@ -214,6 +218,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     //********************************************************************************************//
 
+    // Spinner class to show spinner 2 when  spinner 1 points to cards, activates spinner 3 and give data for spinner 3  as a list
     class SelectShowedCardInfoSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
@@ -252,6 +257,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         }
     }
 
+    // Spinner class to show spinner 2 when  spinner 1 points to accounts, activates spinner 3 and give data for spinner 3  as a list
     class SelectShowedAccountInfoSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
@@ -292,6 +298,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     //********************************************************************************************//
 
+    // Spinner 3  method when 1 spinner points to accounts and spinner 2 has selected an account type
     private void initializeAccountCardObjectSpinnerAccount(ArrayList<String> selectionList) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, selectionList);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -299,6 +306,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         SelectShowedTarget.setOnItemSelectedListener(new SelectShowedAccountCardObjectSpinnerClassAccount( ));
     }
 
+    // Spinner 3  method when 1 spinner points to cards and spinner 2 has selected an card type
     private void initializeAccountCardObjectSpinnerCard(ArrayList<String> selectionList) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, selectionList);
         adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
@@ -307,6 +315,9 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
     }
 
     //********************************************************************************************//
+
+    // these classes will tell which actions is ok to take between different card and account type by inputting the proper action to  whichActionIsGo() method
+
     class SelectShowedAccountCardObjectSpinnerClassCard implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
 
@@ -336,7 +347,6 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         }
 
     }
-
 
     class SelectShowedAccountCardObjectSpinnerClassAccount implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -370,7 +380,31 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     //********************************************************************************************//
 
+    // Switch for deciding to  show  either accounts or or cards in 4th spinner
+    private void activeAccountCardObjectSpinnerAccount( ArrayList<String> arrayList){
 
+        if (arrayList.isEmpty( ) ) {
+            SetSpinnerSelectNothing(SelectShowedTarget);
+            SelectShowedTarget.setEnabled(false);
+        }
+        else{
+            initializeAccountCardObjectSpinnerAccount(arrayList);
+            SelectShowedTarget.setEnabled(true);
+        }
+    }
+
+    private void activeAccountCardObjectSpinnerCard( ArrayList<String> arrayList){
+
+        if (arrayList.isEmpty( ) ) {
+            SetSpinnerSelectNothing(SelectShowedTarget);
+            SelectShowedTarget.setEnabled(false);
+        }
+        else{
+            initializeAccountCardObjectSpinnerCard(arrayList);
+            SelectShowedTarget.setEnabled(true);
+        }
+    }
+    //********************************************************************************************//
     //HANDLE WHAT TO DO (LOGIC)
 
     public void whichActionIsGo(String access){
@@ -396,37 +430,6 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
             iCreditTransactionOK=false;
         }
     }
-
-    private void activeAccountCardObjectSpinnerAccount( ArrayList<String> arrayList){
-
-        if (arrayList.isEmpty( ) ) {
-            SetSpinnerSelectNothing(SelectShowedTarget);
-            SelectShowedTarget.setEnabled(false);
-        }
-        else{
-            initializeAccountCardObjectSpinnerAccount(arrayList);
-            SelectShowedTarget.setEnabled(true);
-        }
-    }
-
-    private void activeAccountCardObjectSpinnerCard( ArrayList<String> arrayList){
-
-        if (arrayList.isEmpty( ) ) {
-            SetSpinnerSelectNothing(SelectShowedTarget);
-            SelectShowedTarget.setEnabled(false);
-        }
-        else{
-            initializeAccountCardObjectSpinnerCard(arrayList);
-            SelectShowedTarget.setEnabled(true);
-        }
-    }
-
-    private boolean inputsNotEmpty(String s1) {
-
-        if(!s1.isEmpty()){
-            return true;
-        }
-        return false;}
 
     public void makeCardWithdrawAction() {
 
@@ -519,8 +522,9 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
     }
 
 
-
-    //HANDLE WHAT TO SHOW
+    ////////////////////////////////////////////////////////////////////////////////////////
+    //If the previous spinner is not pointing to any action  or band account or card.
+    // it is used to make sure that action methods cannot get any wrong input.
     private void resetAllValues() {
 
         SetSpinnerSelectNothing(SelectShowedType);
@@ -554,6 +558,15 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         s.setAdapter(adapter);
     }
 
+    private boolean inputsNotEmpty(String s1) {
+
+        if(!s1.isEmpty()){
+            return true;
+        }
+        return false;}
+    ////////////////////////////////////////////////////////////////////////////////////////
+
+    // Edittext hints after the actions. The text is showed based on what is the boolean value parameter value
     private void messageForUserTransactionEndAccountWithdraw(Boolean isActionCompleted) {
         if(isActionCompleted==true){
             amountOfMoney.setHint("Money withdrawn!");
@@ -608,12 +621,13 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
 
 
-    //GET ACCOUNTS AND CARDS
+    //GET ACCOUNTS AND CARDS: return a string list of cards of accounts
+    // These methods query the data which is showed on show-methods .They are accessed in spinner classes.
 
     private ArrayList<String> getDebitCreditAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.debitCreditAccounts.size( ) > 0) {
-            for( CreditAccount i: currentUserAccount.debitCreditAccounts){
+        if (currentUserAccount.getDebitCreditAccounts().size( ) > 0) {
+            for( CreditAccount i: currentUserAccount.getDebitCreditAccounts()){
                 tempList.add(i.getCreditNumber().toString());
                 tempList.add(i.getBankAccountNumber().toString());
             }
@@ -623,8 +637,8 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     private ArrayList<String> getDebitAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.debitAccounts.size( ) > 0) {
-            for( DebitAccount i: currentUserAccount.debitAccounts){
+        if (currentUserAccount.getDebitAccounts().size( ) > 0) {
+            for( DebitAccount i: currentUserAccount.getDebitAccounts()){
                 tempList.add(i.getBankAccountNumber().toString());
             }
         }
@@ -633,8 +647,8 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     private ArrayList<String> getCreditAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.creditAccounts.size( ) > 0) {
-            for( CreditAccount i: currentUserAccount.creditAccounts){
+        if (currentUserAccount.getCreditAccounts().size( ) > 0) {
+            for( CreditAccount i: currentUserAccount.getCreditAccounts()){
                 tempList.add(i.getCreditNumber().toString());
             }
         }
@@ -686,6 +700,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
 
     //SHOW ACCOUNTS AND CARDS
+    // These are accessed in spinner classes
 
     public void showDebitCreditAccounts(Integer AccountNum){
 
@@ -694,13 +709,6 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         ShowInfoBalanceSaldo.setText("DEBIT/CREDIT:   "+currentUserAccount.getDebitCreditAccount(AccountNum).getMoney());
         ShowInfoLimit.setText("");
     }
-    /*
-            ShowInfoName.setText("ACCOUNT NAME:    "+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditAccountName());
-        ShowInfoAccountOrCardNumber.setText("DEBIT/CREDIT NUMBER:    "+currentUserAccount.getDebitCreditAccount(AccountNum).getBankAccountNumber()+"/"+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditNumber());
-        ShowInfoBalanceSaldo.setText("DEBIT/CREDIT:   "+currentUserAccount.getDebitCreditAccount(AccountNum).getBalance()+"/"+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditSaldo());
-        ShowInfoLimit.setText("");
-    }
-     */
 
     public void showDebitAccounts(Integer AccountNum){
 
@@ -750,6 +758,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
     //TRANSACTIONS
 
     //WITHDRAW
+    // these are accessed in make account withdraw action. Inputs are account number and amount of money
     private void withdrawDebitCreditAccount(String accountNumber, Double amountToSendDouble) {
 
         Boolean isActionCompleted;
@@ -781,9 +790,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         messageForUserTransactionEndAccountWithdraw(isActionCompleted);
     }
 
-
-
-
+// these are accessed in make card withdraw action. Inputs are card number and amount of money
 
     private void withdrawDebitCreditCard(String spinOutputObject, Double amountToSendDouble) {
 
@@ -847,6 +854,8 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
 
     //DEPOSIT
 
+    // these are accessed in  make account deposit action.Inputs are account number and amount of money
+
     private void depositDebitCreditAccount(String accountNumber, Double amountToSendDouble) {
 
         Boolean isActionCompleted;
@@ -884,7 +893,7 @@ public class DepositAndWithdrawActivity extends AppCompatActivity {
         messageForUserTransactionEndAccountDeposit(isActionCompleted);
     }
 
-
+// these are accessed in make card deposit action. Inputs are card number and amount of money
 
     private void depositDebitCreditCard(String spinOutputObject, Double amountToSendDouble) {
 

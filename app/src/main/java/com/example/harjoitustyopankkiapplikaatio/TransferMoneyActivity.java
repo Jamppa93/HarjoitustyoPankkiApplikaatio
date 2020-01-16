@@ -22,10 +22,6 @@ public class TransferMoneyActivity extends AppCompatActivity {
 
     //Declarations
     //*********************************************************//
-    private String SpinOutputType;
-    private String spinOutputObject;
-    private Spinner SelectShowedAccountType;
-    private Spinner SelectShowedAccountTarget;
     private TextView ShowAnythingOutput;
     ;
 
@@ -52,7 +48,7 @@ public class TransferMoneyActivity extends AppCompatActivity {
                 openLoginActivity( );
             }
 
-            public void openLoginActivity() {
+            private void openLoginActivity() {
                 Intent intent = new Intent(TransferMoneyActivity.this, PayAccountActivity.class);
                 startActivity(intent);
             }
@@ -66,7 +62,7 @@ public class TransferMoneyActivity extends AppCompatActivity {
                 openLoginActivity( );
             }
 
-            public void openLoginActivity() {
+            private void openLoginActivity() {
                 Intent intent = new Intent(TransferMoneyActivity.this, PayCardActivity.class);
                 startActivity(intent);
             }
@@ -80,7 +76,7 @@ public class TransferMoneyActivity extends AppCompatActivity {
                 openLoginActivity( );
             }
 
-            public void openLoginActivity() {
+            private void openLoginActivity() {
                 Intent intent = new Intent(TransferMoneyActivity.this, DepositAndWithdrawActivity.class);
                 startActivity(intent);
             }
@@ -94,7 +90,7 @@ public class TransferMoneyActivity extends AppCompatActivity {
                 openLoginActivity( );
             }
 
-            public void openLoginActivity() {
+            private void openLoginActivity() {
                 Intent intent = new Intent(TransferMoneyActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
@@ -102,7 +98,7 @@ public class TransferMoneyActivity extends AppCompatActivity {
     }
 
 
-
+    // prints the bank transactions which are in the bankTransactionsList;
     public void displayTransactions() {
 
         String finalMessage = "";

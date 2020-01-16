@@ -70,12 +70,14 @@ public class MasterCheckUserInfoActivity extends AppCompatActivity {
 
         passwordContact = (TextView) findViewById(R.id.textViewDataPasswordMaster);
         passwordContact.setText(currentUserAccount.getUserInfo().getPassWord());
+
         //*********************************************************//
         //Initializing EditText
 
         //*********************************************************//
         //Initializing Buttons
 
+        //MasterCheckUserInfoActivity:: return to MasterCheckAllUserInfoActivity
         Button buttonContactInfo = (Button) findViewById(R.id.returnFromCheckUserInfoActivity);
         buttonContactInfo.setOnClickListener(new View.OnClickListener( ) {
             @Override

@@ -46,34 +46,34 @@ public class ContactInfoActivity extends AppCompatActivity {
         //*********************************************************//
         //Initializing TextViews
         firstNameContact = (TextView) findViewById(R.id.textViewDataFirstName);
-        firstNameContact.setText(Bank.getLoggedAccount( ).contactInfo.firstName);
+        firstNameContact.setText(Bank.getLoggedAccount( ).getContactInfo().getFirstName());
 
         SurameContact = (TextView) findViewById(R.id.textViewDatasurname);
-        SurameContact.setText(Bank.getLoggedAccount( ).contactInfo.surName);
+        SurameContact.setText(Bank.getLoggedAccount( ).getContactInfo().getSurName());
 
         birthDateContact = (TextView) findViewById(R.id.textViewDataBirthdate);
-        birthDateContact.setText(Bank.getLoggedAccount( ).contactInfo.birthDate);
+        birthDateContact.setText(Bank.getLoggedAccount( ).getContactInfo().getBirthDate());
 
         phoneNumberContact = (TextView) findViewById(R.id.textViewDataPhoneNumber);
-        phoneNumberContact.setText(Bank.getLoggedAccount( ).contactInfo.phone);
+        phoneNumberContact.setText(Bank.getLoggedAccount( ).getContactInfo().getPhone());
 
         emailAddressContact = (TextView) findViewById(R.id.textViewDataEmaiLAddress);
-        emailAddressContact.setText(Bank.getLoggedAccount( ).contactInfo.email);
+        emailAddressContact.setText(Bank.getLoggedAccount( ).getContactInfo().getEmail());
 
         streetNameContact = (TextView) findViewById(R.id.textViewDataStreetName);
-        streetNameContact.setText(Bank.getLoggedAccount( ).contactInfo.streetName);
+        streetNameContact.setText(Bank.getLoggedAccount( ).getContactInfo().getStreetName());
 
         cityContact = (TextView) findViewById(R.id.textViewDataCity);
-        cityContact.setText(Bank.getLoggedAccount( ).contactInfo.city);
+        cityContact.setText(Bank.getLoggedAccount( ).getContactInfo().getCity());
 
         postalCodeContact = (TextView) findViewById(R.id.textViewDataPostalCode);
-        postalCodeContact.setText(Bank.getLoggedAccount( ).contactInfo.postalCode);
+        postalCodeContact.setText(Bank.getLoggedAccount( ).getContactInfo().getPostalCode());
 
         userNameContact = (TextView) findViewById(R.id.textViewDataUserName);
-        userNameContact.setText(Bank.getLoggedAccount( ).userInfo.getUserName( ));
+        userNameContact.setText(Bank.getLoggedAccount( ).getUserInfo().getUserName( ));
 
         passwordContact = (TextView) findViewById(R.id.textViewDataPassword);
-        passwordContact.setText(Bank.getLoggedAccount( ).userInfo.getPassWord( ));
+        passwordContact.setText(Bank.getLoggedAccount( ).getUserInfo().getPassWord( ));
 
         //*********************************************************//
 
@@ -105,7 +105,6 @@ public class ContactInfoActivity extends AppCompatActivity {
 
         //*********************************************************//
         //Initializing Spinner
-
         ArrayList<String> featureList = new ArrayList<>(Arrays.asList("SELECT", "First Name", "Surname", "Date of Birth", "Email", "Phone", "Street name", "City", "Postal Code", "Username", "Password"));
         contactFeatures = findViewById(R.id.spinnerContactFeatures);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, featureList);
@@ -132,8 +131,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringOnlyAlphabet(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.firstName = featureTextTemp;
-                firstNameContact.setText(Bank.getLoggedAccount().contactInfo.firstName);
+                Bank.getLoggedAccount().getContactInfo().setFirstName(featureTextTemp);
+                firstNameContact.setText(Bank.getLoggedAccount().getContactInfo().getFirstName());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -147,8 +146,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringOnlyAlphabet(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.surName = featureTextTemp;
-                SurameContact.setText(Bank.getLoggedAccount().contactInfo.surName);
+                Bank.getLoggedAccount().getContactInfo().setStreetName(featureTextTemp);
+                SurameContact.setText(Bank.getLoggedAccount().getContactInfo().getSurName());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("Surname changed successfully!");
 
@@ -162,8 +161,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringOnlyAlphabet(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.city = featureTextTemp;
-                cityContact.setText(Bank.getLoggedAccount().contactInfo.city);
+                Bank.getLoggedAccount().getContactInfo().setStreetName( featureTextTemp);
+                cityContact.setText(Bank.getLoggedAccount().getContactInfo().getStreetName());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -177,8 +176,8 @@ public class ContactInfoActivity extends AppCompatActivity {
                 isFormatOk = SupportMethods.isStringDateFormat(featureTextTemp);
                 if(isFormatOk == true){
 
-                    Bank.getLoggedAccount().contactInfo.birthDate = featureTextTemp;
-                    birthDateContact.setText(Bank.getLoggedAccount().contactInfo.birthDate);
+                    Bank.getLoggedAccount().getContactInfo().setBirthDate( featureTextTemp);
+                    birthDateContact.setText(Bank.getLoggedAccount().getContactInfo().getBirthDate());
                     alterContactFeatures.setHintTextColor(Color.GREEN);
                     alterContactFeatures.setHint("First name changed successfully!");
 
@@ -196,8 +195,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringOnlyNumeric(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.phone = featureTextTemp;
-                phoneNumberContact.setText(Bank.getLoggedAccount().contactInfo.phone);
+                Bank.getLoggedAccount().getContactInfo().setPhone(featureTextTemp);
+                phoneNumberContact.setText(Bank.getLoggedAccount().getContactInfo().getPhone());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -211,8 +210,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringOnlyNumeric(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.postalCode = featureTextTemp;
-                postalCodeContact.setText(Bank.getLoggedAccount().contactInfo.postalCode);
+                Bank.getLoggedAccount().getContactInfo().setPostalCode(featureTextTemp);
+                postalCodeContact.setText(Bank.getLoggedAccount().getContactInfo().getPostalCode());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -226,8 +225,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             isFormatOk = SupportMethods.isStringEmailAddress(featureTextTemp);
             if(isFormatOk == true){
 
-                Bank.getLoggedAccount().contactInfo.email = featureTextTemp;
-                emailAddressContact.setText(Bank.getLoggedAccount().contactInfo.email);
+                Bank.getLoggedAccount().getContactInfo().setEmail(featureTextTemp);
+                emailAddressContact.setText(Bank.getLoggedAccount().getContactInfo().getEmail());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -240,8 +239,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             // Check that EditText is not empty.
             if ((!featureTextTemp.isEmpty( ))){
 
-                Bank.getLoggedAccount().contactInfo.streetName = featureTextTemp;
-                streetNameContact.setText(Bank.getLoggedAccount().contactInfo.streetName);
+                Bank.getLoggedAccount().getContactInfo().setStreetName( featureTextTemp);
+                streetNameContact.setText(Bank.getLoggedAccount().getContactInfo().getStreetName());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -254,8 +253,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             // Check that EditText is not empty.
             if ((!featureTextTemp.isEmpty( ))) {
 
-                Bank.getLoggedAccount().userInfo.setUsername(featureTextTemp);
-                userNameContact.setText(Bank.getLoggedAccount().userInfo.getUserName());
+                Bank.getLoggedAccount().getUserInfo().setUsername(featureTextTemp);
+                userNameContact.setText(Bank.getLoggedAccount().getUserInfo().getUserName());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 
@@ -268,8 +267,8 @@ public class ContactInfoActivity extends AppCompatActivity {
             // Check that EditText is not empty.
             if ((!featureTextTemp.isEmpty( ))){
 
-                Bank.getLoggedAccount().userInfo.setPassword(featureTextTemp);
-                passwordContact.setText(Bank.getLoggedAccount().userInfo.getPassWord());
+                Bank.getLoggedAccount().getUserInfo().setPassword(featureTextTemp);
+                passwordContact.setText(Bank.getLoggedAccount().getUserInfo().getPassWord());
                 alterContactFeatures.setHintTextColor(Color.GREEN);
                 alterContactFeatures.setHint("First name changed successfully!");
 

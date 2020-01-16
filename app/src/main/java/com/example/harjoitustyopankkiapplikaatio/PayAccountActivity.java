@@ -41,8 +41,8 @@ public class PayAccountActivity extends AppCompatActivity {
 
     private Switch creditSwitch;
 
-    protected EditText receiverAccountNumber;
-    protected EditText amountToSend;
+    private EditText receiverAccountNumber;
+    private EditText amountToSend;
 
     //********************************************************************************************//
     @Override
@@ -244,13 +244,6 @@ public class PayAccountActivity extends AppCompatActivity {
         ShowAccountInfoBalanceSaldo.setText("DEBIT/CREDIT:   "+currentUserAccount.getDebitCreditAccount(AccountNum).getMoney());
 
     }
-    /*
-
-        ShowAccountInfoName.setText("ACCOUNT NAME:    "+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditAccountName());
-        ShowAccountInfoAccountNumber.setText("DEBIT/CREDIT NUMBER:    "+currentUserAccount.getDebitCreditAccount(AccountNum).getBankAccountNumber()+"/"+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditNumber());
-        ShowAccountInfoBalanceSaldo.setText("DEBIT/CREDIT:   "+currentUserAccount.getDebitCreditAccount(AccountNum).getBalance()+"/"+currentUserAccount.getDebitCreditAccount(AccountNum).getCreditSaldo());
-     */
-
     public void showDebitAccounts(Integer AccountNum){
 
         ShowAccountInfoName.setText("ACCOUNT NAME:    "+currentUserAccount.getDebitAccount(AccountNum).getDebitAccountName());
@@ -315,8 +308,8 @@ public class PayAccountActivity extends AppCompatActivity {
 
     private ArrayList<String> getDebitCreditAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.debitCreditAccounts.size( ) > 0) {
-            for( CreditAccount i: currentUserAccount.debitCreditAccounts){
+        if (currentUserAccount.getDebitCreditAccounts().size( ) > 0) {
+            for( CreditAccount i: currentUserAccount.getDebitCreditAccounts()){
                 tempList.add(i.getCreditNumber().toString());
                 tempList.add(i.getBankAccountNumber().toString());
             }
@@ -326,8 +319,8 @@ public class PayAccountActivity extends AppCompatActivity {
 
     private ArrayList<String> getDebitAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.debitAccounts.size( ) > 0) {
-            for( DebitAccount i: currentUserAccount.debitAccounts){
+        if (currentUserAccount.getDebitAccounts().size( ) > 0) {
+            for( DebitAccount i: currentUserAccount.getDebitAccounts()){
                 tempList.add(i.getBankAccountNumber().toString());
             }
         }
@@ -336,8 +329,8 @@ public class PayAccountActivity extends AppCompatActivity {
 
     private ArrayList<String> getCreditAccountForDisplay() {
         ArrayList <String> tempList = new ArrayList<>(Arrays.asList("SELECT ACCOUNT"));
-        if (currentUserAccount.creditAccounts.size( ) > 0) {
-            for( CreditAccount i: currentUserAccount.creditAccounts){
+        if (currentUserAccount.getCreditAccounts().size( ) > 0) {
+            for( CreditAccount i: currentUserAccount.getCreditAccounts()){
                 tempList.add(i.getCreditNumber().toString());
             }
         }

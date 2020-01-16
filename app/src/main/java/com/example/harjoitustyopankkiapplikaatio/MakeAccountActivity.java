@@ -115,7 +115,11 @@ public class MakeAccountActivity extends AppCompatActivity {
         });
 
     }
+
+        // Class makes an account based on the spinners selection.
         class SelectCreationActionAccountSpinnerClass implements AdapterView.OnItemSelectedListener {
+
+
             public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
                 SelectedOptionInAccountCreation = parent.getItemAtPosition(position).toString( );
 
@@ -219,6 +223,8 @@ public class MakeAccountActivity extends AppCompatActivity {
 
         // ACCOUNT CREATION METHODS
 
+    // takes in the edittext parameters and makes the account if the parameters are ok
+
         public void makeDebitCreditAccount(){
             String getDebitAndCreditAccountName = editTextTemp1.getText( ).toString( ).trim( );
             String getDebitAccountDeposit = editTextTemp2.getText( ).toString( ).trim( );
@@ -251,6 +257,7 @@ public class MakeAccountActivity extends AppCompatActivity {
                     //credit limit
                     Integer getCreditAccountCreditInt = Integer.parseInt(getCreditAccountCredit);
 
+                    //Call the Account to create a credit debit account
                     currentUserAccount.createDebitCreditAccount(getDebitAndCreditAccountName,getDebitAccountDepositDouble,getCreditAccountCreditInt);
                     Bank.loggedIn(currentUserAccount);
 
@@ -295,6 +302,7 @@ public class MakeAccountActivity extends AppCompatActivity {
             Integer getDebitAccountDepositInt = Integer.parseInt(getDebitAccountDeposit);
             Double getDebitAccountDepositDouble = (double) getDebitAccountDepositInt;
             if (IsDebitAccountNameOK == true) {
+                //Call the Account to create a debit account
 
                 currentUserAccount.createDebitAccount(getDebitAccountName, getDebitAccountDepositDouble);
                 Bank.loggedIn(currentUserAccount);
@@ -331,13 +339,14 @@ public class MakeAccountActivity extends AppCompatActivity {
                 editTextTemp1.setHint("Give a account name!");
 
             } else if (!getCreditAccountName.isEmpty( )) {
-                Boolean isCreditAccountNameOK = SupportMethods.isStringOnlyAlphabet(getCreditAccountName);
+                Boolean isCreditAccountNameOK = true ;//SupportMethods.isStringOnlyAlphabet(getCreditAccountName);
 
 
                 if (isCreditAccountNameOK == true) {
 
 
-                    //credit limit
+                    //Call the Account to create a credit  account
+
                     Integer getCreditAccountCreditInt = Integer.parseInt(getCreditAccountCredit);
 
                     currentUserAccount.createCreditAccount(false, getCreditAccountName, getCreditAccountCreditInt);

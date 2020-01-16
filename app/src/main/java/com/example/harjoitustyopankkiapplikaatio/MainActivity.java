@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         //*******************************************************************************
         // Creating TestUser for login
 
-        // HIRVEÄÄ ROSKAA
+
         Button buttonTestAccount = (Button) findViewById(R.id.buttonTestUser);
         buttonTestAccount.setOnClickListener(new View.OnClickListener( ){
             @Override
@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
                 makeTestAccount();
             }
         });
+
+        // create the xmlfile
         IOXML.getInstance().createRecordFile();
 
         //*******************************************************************************
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
     public void openCreateAccount() {
         Intent intent = new Intent(this, CreateAccountActivity.class);
         startActivity(intent);

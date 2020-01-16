@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,8 +40,6 @@ public class MakeChangesAccountOrCards extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
         setContentView(R.layout.activity_make_changes_account_or_cards);
         SelectTypeAccountOrCard = findViewById(R.id.SpinnerSelectType);
@@ -209,11 +206,6 @@ public class MakeChangesAccountOrCards extends AppCompatActivity {
         if(s!=""){
             return Integer.parseInt(s);}
         else return 0;}
-
-
-
-
-
 
     class SelectTypeAccountOrCardSpinnerClass implements AdapterView.OnItemSelectedListener {
         public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
@@ -439,7 +431,7 @@ public class MakeChangesAccountOrCards extends AppCompatActivity {
             if (selectedFeature.matches("REMOVE DEBIT CARD")) {
 
                 for (CreditAccount i : currentUserAccount.getDebitCreditAccounts( )) {
-                    if (selectedAccount.matches(i.creditNumber.toString( ))) {
+                    if (selectedAccount.matches(i.getCreditNumber().toString( ))) {
                         for (SuperCard s : i.getSuperCardsInAccount( )) {
                             showThese.add(s.getDebitCardHolder( ).getDebitBankNumber( ).toString( ));
                         }
@@ -450,7 +442,7 @@ public class MakeChangesAccountOrCards extends AppCompatActivity {
             if (selectedFeature.matches("REMOVE CREDIT CARD")) {
 
                 for (CreditAccount i : currentUserAccount.getDebitCreditAccounts( )) {
-                    if (selectedAccount.matches(i.creditNumber.toString( ))) {
+                    if (selectedAccount.matches(i.getCreditNumber().toString( ))) {
                         for (SuperCard s : i.getSuperCardsInAccount( )) {
                             showThese.add(s.getCreditCardHolder( ).getcreditCardNumber( ).toString( ));
                         }

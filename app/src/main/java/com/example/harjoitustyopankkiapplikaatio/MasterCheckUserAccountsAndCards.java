@@ -22,7 +22,7 @@ public class MasterCheckUserAccountsAndCards extends AppCompatActivity {
     private TextView welcomeText;
     private TextView showAnything;
     private Spinner SelectShowedAccountTypeInfo;
-    Button buttonReturnCheckAllUserInfo;
+    private Button buttonReturnCheckAllUserInfo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,7 @@ public class MasterCheckUserAccountsAndCards extends AppCompatActivity {
 
 
         showAnything.setMovementMethod(new ScrollingMovementMethod( ));
-        welcomeText.setText("USERS, " + Bank.getLoggedAccount( ).contactInfo.firstName + " ACCOUNTS AND CARDS");
+        welcomeText.setText("USERS, " + Bank.getLoggedAccount( ).getContactInfo().getFirstName() + " ACCOUNTS AND CARDS");
         buttonReturnCheckAllUserInfo.setOnClickListener(new View.OnClickListener( ) {
             @Override
             public void onClick(View v) {
@@ -100,10 +100,10 @@ public class MasterCheckUserAccountsAndCards extends AppCompatActivity {
     }
 
     public void displayDebitCreditAccount(){
-        if (currentUserAccount.debitCreditAccounts.size( ) > 0) {
+        if (currentUserAccount.getDebitCreditAccounts().size( ) > 0) {
             String finalMessage = "";
             String Message ="";
-            for (CreditAccount i : currentUserAccount.debitCreditAccounts) {
+            for (CreditAccount i : currentUserAccount.getDebitCreditAccounts()) {
 
                 if (i.isDebitActive()==false){
                     Message = "Credit Account Number: "+ i.getCreditNumber( ).toString( ) + "\nName: " +  i.getCreditAccountName( )+"\n Credit saldo:" + i.getCreditSaldo( ).toString( ) + "\n\n";
@@ -125,9 +125,9 @@ public class MasterCheckUserAccountsAndCards extends AppCompatActivity {
     }
 
     public void displayDebitAccount(){
-        if (currentUserAccount.debitAccounts.size( ) > 0) {
+        if (currentUserAccount.getDebitAccounts().size( ) > 0) {
             String finalMessage = "";
-            for (DebitAccount i : currentUserAccount.debitAccounts) {
+            for (DebitAccount i : currentUserAccount.getDebitAccounts()) {
                 String Message = "Debit Account Number:" + i.getBankAccountNumber( ).toString( ) + "\nName:" +  i.getDebitAccountName( ) + "\nBalance:" + i.getBalance( ).toString( ) + "\n\n";
                 finalMessage = finalMessage + Message;
             }
@@ -138,9 +138,9 @@ public class MasterCheckUserAccountsAndCards extends AppCompatActivity {
     }
 
     public void displayCreditAccount(){
-        if (currentUserAccount.creditAccounts.size( ) > 0) {
+        if (currentUserAccount.getCreditAccounts().size( ) > 0) {
             String finalMessage = "";
-            for (CreditAccount i : currentUserAccount.creditAccounts) {
+            for (CreditAccount i : currentUserAccount.getCreditAccounts()) {
                 String Message = "Credit Account Number::" + i.getCreditNumber( ).toString( ) + "\nName:" + i.getCreditAccountName( ) + "\nCredit saldo:" + i.getCreditSaldo( ).toString( ) + "\n\n";
                 finalMessage = finalMessage + Message;
             }
